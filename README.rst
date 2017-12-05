@@ -56,19 +56,19 @@ example query sent to radiocells.org:
 
 .. code:: json
 
-curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"wifiAccessPoints":[{"macAddress":"24-DE-C6-A8-C9-64","signalStrength":-57}]}' https://radiocells.org/backend/geolocate
+  curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"wifiAccessPoints":[{"macAddress":"24-DE-C6-A8-C9-64","signalStrength":-57}]}' https://radiocells.org/backend/geolocate
 
 Example response:
 
 .. code:: json
 
-{"source": "wifis", "measurements": 14, "location": {"lat": 59.12345, "lng": 10.12345}, "accuracy": 30}
+  {"source": "wifis", "measurements": 14, "location": {"lat": 59.12345, "lng": 10.12345}, "accuracy": 30}
 
 or on fail:
 
 .. code:: json
 
-{'resultType': 'error', 'results': {'source': 'none', 'measurements': 0, 'location': {'lat': 0.0, 'lng': 0.0}, 'accuracy': 9999}, 'error': {'message': 'Empty request', 'code': 400, 'errors': [{'message': None, 'reason': 'parseError', 'domain': 'global'}]}}
+  {'resultType': 'error', 'results': {'source': 'none', 'measurements': 0, 'location': {'lat': 0.0, 'lng': 0.0}, 'accuracy': 9999}, 'error': {'message': 'Empty request', 'code': 400, 'errors': [{'message': None, 'reason': 'parseError', 'domain': 'global'}]}}
 
 TODO
 ----
