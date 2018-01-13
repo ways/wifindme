@@ -11,15 +11,15 @@ if 1 >= len(sys.argv):
   print("Usage:", sys.argv[0], "<wifi device>")
   sys.exit(1)
 
-print('Radiocells')
+print('Radiocells:')
 accuracy, latlng = wifindme.locate(device=sys.argv[1], min_aps=3, service='r')
 if verbose: print(accuracy, latlng)  # e.g. 25, (50.1234567, -1.234567)
-
-print('Mozilla')
-accuracy, latlng = wifindme.locate(device=sys.argv[1], min_aps=3, service='m')
-if verbose: print(accuracy, latlng)  # e.g. 25, (50.1234567, -1.234567)
-
 if not accuracy:
   if verbose: print("No location")
-  sys.exit(1)
+
+print('Mozilla Location Service:')
+accuracy, latlng = wifindme.locate(device=sys.argv[1], min_aps=3, service='m')
+if verbose: print(accuracy, latlng)  # e.g. 25, (50.1234567, -1.234567)
+if not accuracy:
+  if verbose: print("No location")
 

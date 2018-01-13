@@ -74,6 +74,8 @@ TODO
 ----
 
 * Notify https://wiki.mozilla.org/CloudServices/Location/Software
-* Only scan wifi once when fetching location from both
+* Support fetching location from both at the same time.
 * Googles API is compatible, so can add that as well.
-* Check with Mozilla if this can be packaged with test API key
+* Check with Mozilla if this can be packaged with test API key.
+* Correct radiocells "accuracy". They always give 30m...
+
