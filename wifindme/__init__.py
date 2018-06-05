@@ -15,7 +15,12 @@ system_version = '0.3'
 system_name = 'wifindme.py'
 
 apiradiocells = 'https://radiocells.org/backend/geolocate'
-apimozilla = 'https://location.services.mozilla.com/v1/geolocate?key=test'
+apimozilla = 'https://location.services.mozilla.com/v1/geolocate?key='
+keymozilla = 'test'
+
+# TODO https://developers.google.com/maps/documentation/geolocation/intro
+apigoogle = 'https://www.googleapis.com/geolocation/v1/geolocate?key='
+keygoogle = 'YOUR_API_KEY'
 
 verbose = False
 start = None
@@ -32,7 +37,7 @@ def locate(device='wlan0', min_aps=1, max_aps=0, hiddenaps=True, service='r'):
     Min_aps = minimum visible Access Points before a location is looked up. 0 = no limit.
     Max_aps = only send the first x APs to api. 0 = no limit.
     hiddenaps = Use wifi APs with hidden SSID, true or false
-    service = Valid choices: 'r', 'm'
+    service = Valid choices: 'r', 'm', 'g'
     """
 
     num = 0
@@ -68,11 +73,17 @@ def locate(device='wlan0', min_aps=1, max_aps=0, hiddenaps=True, service='r'):
     if (0 < num and num >= min_aps): 
         if verbose: start=time.time()
         headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
+        if 'r' == service:
+            apiurl = apiradiocells
+        elif 'm' == service:
+            apiurl = apimozilla + keymozilla
+        elif 'g' == service:
+            apiurl = apigoogle + keygoogle
+        else:
+            print("Error in service choice " + service)
+
         try:
-            if 'r' == service:
-                response = requests.post(apiradiocells, headers=headers, timeout=timeout, data=(j))
-            elif 'm' == service:
-                response = requests.post(apimozilla, headers=headers, timeout=timeout, data=(j))
+            response = requests.post(apiurl, headers=headers, timeout=timeout, data=(j))
         except requests.exceptions.ReadTimeout as e: # socket.timeout as e:
             if verbose: print ("API timeout." + e)
             return False, (False, False)
